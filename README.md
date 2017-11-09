@@ -1,2 +1,4 @@
-# merchants-spa
-AUTO1's interview challenge
+# To start
+
+`yarn` or `npm install`
+`yarn start` or `npm start`

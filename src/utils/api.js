@@ -4,14 +4,25 @@ const resource = { merchants: "merchants" };
 export const listMerchants = (pagination = "") =>
   fetchList(resource.merchants, pagination).then(response => response.json());
 
+export const getMerchant = id =>
+  fetchGet(resource.merchants, id).then(response => response.json());
+
 const fetchList = (resource, pagination) =>
-  fetch(`${apiUrl}/${resource}/${pagination}`, {
+  fetch(`${apiUrl}/${resource}/${mountQueryString({ pagination })}`, {
     headers: {
       "Content-Type": "application/json"
     },
     method: "GET"
   });
-//eslint-disable-next-line
+const mountQueryString = params => {
+  if (params) {
+    const paramsNames = Object.keys(params);
+
+    return "?" + paramsNames.map(name => `${name}=${params[name]}`).join("&");
+  } else {
+    return "";
+  }
+};
 const fetchGet = (resource, id) =>
   fetch(`${apiUrl}/${resource}/${id}`, {
     headers: {

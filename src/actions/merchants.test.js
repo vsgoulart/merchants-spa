@@ -9,10 +9,22 @@ describe("merchants actions", () => {
   });
 
   it("should create an action to receive the merchants' data", () => {
-    const actual = actions.receiveMerchants([]);
+    const merchants = [
+      {
+        id: 1,
+        firstname: "Charo",
+        lastname: "Lockey",
+        avatarUrl: "https://robohash.org/sedvitaeculpa.jpg?size=50x50&set=set1",
+        email: "clockey0@free.fr",
+        phone: "9534745812",
+        hasPremium: true,
+        bids: []
+      }
+    ];
+    const actual = actions.receiveMerchants(merchants);
     const expected = {
       type: actions.RECEIVE_MERCHANTS,
-      payload: { merchants: [] }
+      payload: { merchants }
     };
 
     expect(actual).toEqual(expected);
@@ -22,6 +34,23 @@ describe("merchants actions", () => {
     const error = new Error("test error");
     const actual = actions.setMerchantsError(error);
     const expected = { type: actions.SET_MERCHANTS_ERROR, payload: { error } };
+
+    expect(actual).toEqual(expected);
+  });
+
+  it("should create an action to receive a merchant data", () => {
+    const merchant = {
+      id: 1,
+      firstname: "Charo",
+      lastname: "Lockey",
+      avatarUrl: "https://robohash.org/sedvitaeculpa.jpg?size=50x50&set=set1",
+      email: "clockey0@free.fr",
+      phone: "9534745812",
+      hasPremium: true,
+      bids: []
+    };
+    const actual = actions.receiveMerchant(merchant);
+    const expected = { type: actions.RECEIVE_MERCHANT, payload: { merchant } };
 
     expect(actual).toEqual(expected);
   });

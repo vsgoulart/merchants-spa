@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-import logo from "../images/logo.png";
-import "../styles/App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Merchants from "../containers/Merchants";
+import Merchant from "../containers/Merchant";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Merchants} />
+            <Route exact path="/merchants/" component={Merchants} />
+            <Route exact path="/merchants/:id" component={Merchant} />
+            <Route path="/merchants/:id/edit" render={() => <p>tek</p>} />
+            <Route path="/merchants/new" render={() => <p>tek</p>} />
+            <Route render={() => <p>Not found</p>} />
+          </Switch>
+        </Router>
       </div>
     );
   }

@@ -16,18 +16,28 @@ class MerchantsView extends Component {
   }
 
   renderMerchants() {
-    const { merchants, lastPage } = this.props;
+    const { merchants, pagesCount, deleteMerchant } = this.props;
 
     return (
       <div>
         <ul>
           {merchants.map(merchant => (
             <li key={merchant.id}>
-              <Link to={`/merchants/${merchant.id}`}>{merchant.firstname}</Link>
+              <Link to={`/merchants/${merchant.id}`}>
+                {merchant.firstname}
+              </Link>{" "}
+              <Link to={`/merchants/${merchant.id}/edit`}>edit</Link>{" "}
+              <button
+                onClick={event => {
+                  deleteMerchant(merchant.id);
+                }}
+              >
+                X
+              </button>
             </li>
           ))}
         </ul>
-        <Pager lastPage={lastPage} />
+        <Pager pagesCount={pagesCount} />
       </div>
     );
   }

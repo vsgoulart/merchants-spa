@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Pager = ({ lastPage }) =>
-  lastPage ? (
+const Pager = ({ pagesCount }) =>
+  pagesCount ? (
     <ul>
-      {[...Array(lastPage + 1)].map((item, index) => (
+      {[...Array(pagesCount)].map((item, index) => (
         <li key={index}>
           <Link to={`/${index + 1}`}>{index + 1}</Link>
         </li>

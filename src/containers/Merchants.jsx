@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchMerchants } from "../actions/merchants";
+import { fetchMerchants, fetchDeleteMerchant } from "../actions/merchants";
 
 import MerchantsView from "../components/MerchantsView";
 
@@ -11,42 +11,43 @@ class Merchants extends Component {
 
   componentDidMount() {
     const { getMerchants } = this.props;
-    let { page } = this.props.match.params;
 
-    if (page) {
-      page--;
-    }
-
-    getMerchants(page);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { getMerchants } = this.props;
-    let { page } = this.props.match.params;
-    const prevPage = prevProps.match.params.page;
-
-    if (page !== prevPage) {
-      if (page) {
-        page--;
-      }
-
-      getMerchants(page);
-    }
+    getMerchants();
   }
 }
 
-const mapStateToProps = state => ({
-  merchants: Object.keys(state.merchants.data).map(
-    key => state.merchants.data[key]
-  ),
-  loading: state.merchants.isFetching,
-  error: state.merchants.error,
-  lastPage: state.merchants.lastPage
-});
+const mapStateToProps = (state, ownProps) => {
+  const merchants = state.merchants.data;
+  const merchantsKeys = Object.keys(merchants);
+  const pageSize = 10;
+  const pagesCount = Math.ceil(merchantsKeys.length / pageSize);
+  let { page } = ownProps.match.params;
+
+  if (page) {
+    page--;
+  } else {
+    page = 0;
+  }
+
+  const lowerLimit = 0 + page * 10;
+  const upperLimit = 10 + page * 10;
+
+  return {
+    merchants: merchantsKeys
+      .map(key => merchants[key])
+      .slice(lowerLimit, upperLimit),
+    loading: state.merchants.isFetching,
+    error: state.merchants.error,
+    pagesCount
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
-  getMerchants(pagination) {
-    dispatch(fetchMerchants(pagination));
+  getMerchants() {
+    dispatch(fetchMerchants());
+  },
+  deleteMerchant(id) {
+    dispatch(fetchDeleteMerchant(id));
   }
 });
 

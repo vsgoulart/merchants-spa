@@ -1,8 +1,8 @@
 const apiUrl = process.env.API_URL || "http://localhost:3001";
 const resource = { merchants: "merchants" };
 
-export const listMerchants = (pagination = "") =>
-  fetchList(resource.merchants, pagination).then(response => response.json());
+export const listMerchants = () =>
+  fetchList(resource.merchants).then(response => response.json());
 
 export const getMerchant = id =>
   fetchGet(resource.merchants, id).then(response => response.json());
@@ -11,21 +11,13 @@ export const deleteMerchant = id =>
   fetchDelete(resource.merchants, id).then(response => response.json());
 
 const fetchList = (resource, page) =>
-  fetch(`${apiUrl}/${resource}/${mountQueryString({ page })}`, {
+  fetch(`${apiUrl}/${resource}/`, {
     headers: {
       "Content-Type": "application/json"
     },
     method: "GET"
   });
-const mountQueryString = params => {
-  if (params) {
-    const paramsNames = Object.keys(params);
 
-    return "?" + paramsNames.map(name => `${name}=${params[name]}`).join("&");
-  } else {
-    return "";
-  }
-};
 const fetchGet = (resource, id) =>
   fetch(`${apiUrl}/${resource}/${id}`, {
     headers: {

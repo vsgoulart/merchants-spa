@@ -12,9 +12,9 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Merchants} />
-            <Route exact path="/merchants/:id" component={Merchant} />
             <Route path="/merchants/:id/edit" component={MerchantForm} />
             <Route path="/merchants/new" component={MerchantForm} />
+            <Route exact path="/merchants/:id" component={Merchant} />
             <Route exact path="/:page" component={Merchants} />
             <Route render={() => <p>Not found</p>} />
           </Switch>

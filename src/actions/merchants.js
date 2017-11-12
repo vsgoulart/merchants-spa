@@ -27,10 +27,10 @@ export const setMerchantsError = error => ({
   payload: { error }
 });
 
-export const fetchMerchants = pagination => dispatch => {
+export const fetchMerchants = () => dispatch => {
   dispatch(requestMerchants());
 
-  return listMerchants(pagination)
+  return listMerchants()
     .then(response => {
       //On a real project errors sent from the API should also be checked here and act accordingly
 

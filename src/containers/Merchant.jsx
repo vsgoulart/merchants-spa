@@ -1,19 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMerchant } from "../actions/merchants";
+import MerchantView from "../components/MerchantView";
 
 class Merchant extends Component {
   render() {
-    const { merchant, loading, error } = this.props;
-    if (error) {
-      return <h1>error</h1>;
-    } else if (loading) {
-      return <h1>loading</h1>;
-    } else if (merchant) {
-      return <h1>{JSON.stringify(merchant)}</h1>;
-    } else {
-      return <h1>lol</h1>;
-    }
+    return <MerchantView {...this.props} />;
   }
 
   componentDidMount() {

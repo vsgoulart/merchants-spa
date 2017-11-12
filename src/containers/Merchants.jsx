@@ -1,32 +1,37 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchMerchants } from "../actions/merchants";
 
+import MerchantsView from "../components/MerchantsView";
+
 class Merchants extends Component {
   render() {
-    const { merchants, loading, error } = this.props;
-    if (error) {
-      return <h1>{error}</h1>;
-    } else if (loading) {
-      return <h1>loading</h1>;
-    } else {
-      return (
-        <ul>
-          {merchants.map(merchant => (
-            <li key={merchant.id}>
-              <Link to={`/merchants/${merchant.id}`}>{merchant.firstname}</Link>
-            </li>
-          ))}
-        </ul>
-      );
-    }
+    return <MerchantsView {...this.props} />;
   }
 
   componentDidMount() {
     const { getMerchants } = this.props;
+    let { page } = this.props.match.params;
 
-    getMerchants(0);
+    if (page) {
+      page--;
+    }
+
+    getMerchants(page);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { getMerchants } = this.props;
+    let { page } = this.props.match.params;
+    const prevPage = prevProps.match.params.page;
+
+    if (page !== prevPage) {
+      if (page) {
+        page--;
+      }
+
+      getMerchants(page);
+    }
   }
 }
 
@@ -35,7 +40,8 @@ const mapStateToProps = state => ({
     key => state.merchants.data[key]
   ),
   loading: state.merchants.isFetching,
-  error: state.merchants.error
+  error: state.merchants.error,
+  lastPage: state.merchants.lastPage
 });
 
 const mapDispatchToProps = dispatch => ({

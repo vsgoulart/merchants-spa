@@ -29,12 +29,13 @@ describe("merchants reducer", () => {
   });
 
   it(`should set data with the passed merchants when ${actions.RECEIVE_MERCHANTS} is dispatched`, () => {
-    const actual = reducer(undefined, actions.receiveMerchants([merchant]));
+    const actual = reducer(undefined, actions.receiveMerchants([merchant], 1));
     const expected = {
       [merchant.id]: merchant
     };
 
     expect(actual).toHaveProperty("data", expected);
+    expect(actual).toHaveProperty("lastPage", 1);
   });
 
   it(`should add a merchant to the data property when ${actions.RECEIVE_MERCHANT} is dispatched`, () => {

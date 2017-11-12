@@ -7,9 +7,9 @@ export const SET_MERCHANTS_ERROR = "SET_MERCHANTS_ERROR";
 
 export const requestMerchants = () => ({ type: REQUEST_MERCHANTS });
 
-export const receiveMerchants = merchants => ({
+export const receiveMerchants = (merchants, lastPage) => ({
   type: RECEIVE_MERCHANTS,
-  payload: { merchants }
+  payload: { merchants, lastPage }
 });
 
 export const receiveMerchant = merchant => ({
@@ -29,7 +29,7 @@ export const fetchMerchants = pagination => dispatch => {
     .then(response => {
       //On a real project errors sent from the API should also be checked here and act accordingly
 
-      dispatch(receiveMerchants(response));
+      dispatch(receiveMerchants(response.result, response.lastPage));
     })
     .catch(error => {
       console.log(error);
@@ -42,7 +42,7 @@ export const fetchMerchant = id => dispatch => {
 
   return getMerchant(id)
     .then(response => {
-      dispatch(receiveMerchant(response));
+      dispatch(receiveMerchant(response.result));
     })
     .catch(error => {
       console.log(error);

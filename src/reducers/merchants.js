@@ -6,14 +6,14 @@ import {
 } from "../actions/merchants";
 
 const merchants = (
-  state = { data: {}, isFetching: false, error: false },
+  state = { data: {}, lastPage: 0, isFetching: false, error: false },
   action
 ) => {
   switch (action.type) {
     case REQUEST_MERCHANTS:
       return { ...state, isFetching: true, error: false };
     case RECEIVE_MERCHANTS:
-      const { merchants } = action.payload;
+      const { merchants, lastPage } = action.payload;
       return {
         ...state,
         isFetching: false,
@@ -23,7 +23,8 @@ const merchants = (
             [merchant.id]: { ...merchant }
           }),
           {}
-        )
+        ),
+        lastPage
       };
     case RECEIVE_MERCHANT:
       const { merchant } = action.payload;
@@ -36,7 +37,7 @@ const merchants = (
         }
       };
     case SET_MERCHANTS_ERROR:
-      return { ...state, error: action.payload.error };
+      return { ...state, error: action.payload.error, isFetching: false };
     default:
       return state;
   }

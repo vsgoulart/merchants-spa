@@ -21,10 +21,10 @@ describe("merchants actions", () => {
         bids: []
       }
     ];
-    const actual = actions.receiveMerchants(merchants);
+    const actual = actions.receiveMerchants(merchants, 1);
     const expected = {
       type: actions.RECEIVE_MERCHANTS,
-      payload: { merchants }
+      payload: { merchants, lastPage: 1 }
     };
 
     expect(actual).toEqual(expected);

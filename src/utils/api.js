@@ -7,8 +7,8 @@ export const listMerchants = (pagination = "") =>
 export const getMerchant = id =>
   fetchGet(resource.merchants, id).then(response => response.json());
 
-const fetchList = (resource, pagination) =>
-  fetch(`${apiUrl}/${resource}/${mountQueryString({ pagination })}`, {
+const fetchList = (resource, page) =>
+  fetch(`${apiUrl}/${resource}/${mountQueryString({ page })}`, {
     headers: {
       "Content-Type": "application/json"
     },

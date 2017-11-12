@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { reduxForm } from "redux-form";
 import MerchantFormView from "../components/MerchantFormView";
 
 class MerchantForm extends Component {
@@ -7,6 +8,8 @@ class MerchantForm extends Component {
     return <MerchantFormView {...this.props} />;
   }
 }
+
+MerchantForm = reduxForm({ form: "merchant" })(MerchantForm);
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params;
@@ -27,4 +30,18 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps)(MerchantForm);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { id } = ownProps.match.params;
+
+  return {
+    save(values) {
+      console.log(values);
+
+      if (id) {
+      } else {
+      }
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MerchantForm);

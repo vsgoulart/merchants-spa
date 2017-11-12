@@ -7,6 +7,9 @@ export const listMerchants = (pagination = "") =>
 export const getMerchant = id =>
   fetchGet(resource.merchants, id).then(response => response.json());
 
+export const deleteMerchant = id =>
+  fetchDelete(resource.merchants, id).then(response => response.json());
+
 const fetchList = (resource, page) =>
   fetch(`${apiUrl}/${resource}/${mountQueryString({ page })}`, {
     headers: {
@@ -48,7 +51,6 @@ const fetchUpdate = (resource, id, data) =>
     method: "PUT",
     body: JSON.stringify(data)
   });
-//eslint-disable-next-line
 const fetchDelete = (resource, id) =>
   fetch(`${apiUrl}/${resource}/${id}/`, {
     headers: {

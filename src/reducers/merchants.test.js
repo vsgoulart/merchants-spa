@@ -59,4 +59,25 @@ describe("merchants reducer", () => {
 
     expect(actual).toHaveProperty("data", expected);
   });
+
+  it(`should add a merchant when ${actions.CREATE_MERCHANT} is dispatched`, () => {
+    const actual = reducer(undefined, actions.createMerchant(merchant));
+    const expected = { [merchant.id]: merchant };
+
+    expect(actual).toHaveProperty("data", expected);
+  });
+
+  it(`should update a merchant when ${actions.UPDATE_MERCHANT} is dispatched`, () => {
+    const actual = reducer(
+      {
+        data: { [merchant.id]: { ...merchant } },
+        isFetching: false,
+        error: false
+      },
+      actions.updateMerchant({ ...merchant, firstname: "Jon" })
+    );
+    const expected = { [merchant.id]: { ...merchant, firstname: "Jon" } };
+
+    expect(actual).toHaveProperty("data", expected);
+  });
 });

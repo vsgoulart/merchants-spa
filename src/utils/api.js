@@ -7,6 +7,14 @@ export const listMerchants = () =>
 export const getMerchant = id =>
   fetchGet(resource.merchants, id).then(response => response.json());
 
+export const createMerchant = merchant =>
+  fetchCreate(resource.merchants, merchant).then(response => response.json());
+
+export const updateMerchant = merchant =>
+  fetchUpdate(resource.merchants, merchant.id, merchant).then(response =>
+    response.json()
+  );
+
 export const deleteMerchant = id =>
   fetchDelete(resource.merchants, id).then(response => response.json());
 
@@ -25,7 +33,6 @@ const fetchGet = (resource, id) =>
     },
     method: "GET"
   });
-//eslint-disable-next-line
 const fetchCreate = (resource, data) =>
   fetch(`${apiUrl}/${resource}/`, {
     headers: {
@@ -34,7 +41,6 @@ const fetchCreate = (resource, data) =>
     method: "POST",
     body: JSON.stringify(data)
   });
-//eslint-disable-next-line
 const fetchUpdate = (resource, id, data) =>
   fetch(`${apiUrl}/${resource}/${id}/`, {
     headers: {

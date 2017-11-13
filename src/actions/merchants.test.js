@@ -51,4 +51,18 @@ describe("merchants actions", () => {
 
     expect(actual).toEqual(expectd);
   });
+
+  it("should create an action to create a merchant", () => {
+    const actual = actions.createMerchant(merchant);
+    const expected = { type: actions.CREATE_MERCHANT, payload: { merchant } };
+
+    expect(actual).toEqual(expected);
+  });
+
+  it("should create an action to update a merchant", () => {
+    const actual = actions.updateMerchant(merchant);
+    const expected = { type: actions.UPDATE_MERCHANT, payload: { merchant } };
+
+    expect(actual).toEqual(expected);
+  });
 });

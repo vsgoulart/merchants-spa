@@ -39,6 +39,34 @@ class MerchantFormView extends Component {
             required
           />
         </label>
+        <label htmlFor="avatarUrl">
+          Avatar URL
+          <Field name="avatarUrl" id="avatarUrl" component="input" type="url" />
+        </label>
+        <label htmlFor="email">
+          Email
+          <Field
+            name="email"
+            id="email"
+            component="input"
+            type="email"
+            required
+          />
+        </label>
+        <label htmlFor="phone">
+          Phone
+          <Field name="phone" id="phone" component="input" type="tel" />
+        </label>
+        <label htmlFor="hasPremium">
+          <Field
+            name="hasPremium"
+            id="hasPremium"
+            component="input"
+            type="checkbox"
+          />
+          Has premium
+        </label>
+        <button type="submit">Save</button>
       </form>
     );
   }

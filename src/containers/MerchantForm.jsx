@@ -1,11 +1,32 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
+import {
+  fetchMerchant,
+  fetchCreateMerchant,
+  fetchUpdateMerchant
+} from "../actions/merchants";
+import { redirect } from "../actions/redirect";
 import MerchantFormView from "../components/MerchantFormView";
 
 class MerchantForm extends Component {
   render() {
-    return <MerchantFormView {...this.props} />;
+    const { redirect } = this.props;
+    if (redirect) {
+      return <Redirect to="/" />;
+    } else {
+      return <MerchantFormView {...this.props} />;
+    }
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    const { initialValues, getMerchant } = this.props;
+
+    if (id && !initialValues) {
+      getMerchant(id);
+    }
   }
 }
 
@@ -16,17 +37,19 @@ const mapStateToProps = (state, ownProps) => {
 
   if (id) {
     const merchants = state.merchants.data;
+    const initialValues = merchants[id] ? { ...merchants[id] } : undefined;
     const loading = state.merchants.isFetching
       ? true
       : !merchants.hasOwnProperty(id);
 
     return {
-      initialValues: { ...merchants[id] },
+      initialValues,
       loading,
-      error: state.merchants.error
+      error: state.merchants.error,
+      redirect: state.redirect
     };
   } else {
-    return {};
+    return { redirect: state.redirect };
   }
 };
 
@@ -35,11 +58,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
   return {
     save(values) {
-      console.log(values);
-
       if (id) {
+        dispatch(fetchUpdateMerchant(values));
+        dispatch(redirect());
       } else {
+        dispatch(fetchCreateMerchant(values));
+        dispatch(redirect());
       }
+    },
+    getMerchant(id) {
+      dispatch(fetchMerchant(id));
     }
   };
 };

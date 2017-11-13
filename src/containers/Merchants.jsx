@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchMerchants, fetchDeleteMerchant } from "../actions/merchants";
+import { resetRedirect as resetRedirectAction } from "../actions/redirect";
 
 import MerchantsView from "../components/MerchantsView";
 
@@ -10,9 +11,10 @@ class Merchants extends Component {
   }
 
   componentDidMount() {
-    const { getMerchants } = this.props;
+    const { getMerchants, resetRedirect } = this.props;
 
     getMerchants();
+    resetRedirect();
   }
 }
 
@@ -48,6 +50,9 @@ const mapDispatchToProps = dispatch => ({
   },
   deleteMerchant(id) {
     dispatch(fetchDeleteMerchant(id));
+  },
+  resetRedirect() {
+    dispatch(resetRedirectAction());
   }
 });
 

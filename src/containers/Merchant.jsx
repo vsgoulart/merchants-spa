@@ -21,12 +21,23 @@ class Merchant extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params;
   const merchants = state.merchants.data;
+  const merchant = merchants[id]
+    ? {
+        ...merchants[id],
+        bids: merchants[id].bids.sort((firstBid, secondBid) => {
+          const firstDate = new Date(firstBid.created).getTime();
+          const secondDate = new Date(secondBid.created).getTime();
+
+          return secondDate - firstDate;
+        })
+      }
+    : undefined;
   const loading = state.merchants.isFetching
     ? true
     : !merchants.hasOwnProperty(id);
 
   return {
-    merchant: merchants[id],
+    merchant,
     loading,
     error: state.merchants.error
   };

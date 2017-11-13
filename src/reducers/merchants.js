@@ -5,7 +5,8 @@ import {
   SET_MERCHANTS_ERROR,
   DELETE_MERCHANT,
   CREATE_MERCHANT,
-  UPDATE_MERCHANT
+  UPDATE_MERCHANT,
+  RESET_MERCHANTS_ERROR
 } from "../actions/merchants";
 
 const merchants = (
@@ -76,6 +77,8 @@ const merchants = (
         isFetching: false,
         data: { ...merchants, [updatedMerchant.id]: { ...updatedMerchant } }
       };
+    case RESET_MERCHANTS_ERROR:
+      return { ...state, error: false };
     default:
       return state;
   }

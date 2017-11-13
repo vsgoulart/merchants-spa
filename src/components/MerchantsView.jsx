@@ -1,6 +1,13 @@
+import "../styles/MerchantsView.scss";
+
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Pager from "./Pager";
+import EditIcon from "./EditIcon";
+import RemoveIcon from "./RemoveIcon";
+import PremiumIcon from "./PremiumIcon";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
 class MerchantsView extends Component {
   render() {
@@ -19,22 +26,16 @@ class MerchantsView extends Component {
     const { merchants, pagesCount, deleteMerchant } = this.props;
 
     return (
-      <div>
+      <div className="MerchantsView">
         <ul>
           {merchants.map(merchant => (
-            <li key={merchant.id}>
-              <Link to={`/merchants/${merchant.id}`}>
-                {merchant.firstname}
-              </Link>{" "}
-              <Link to={`/merchants/${merchant.id}/edit`}>edit</Link>{" "}
-              <button
-                onClick={event => {
-                  deleteMerchant(merchant.id);
-                }}
-              >
-                X
-              </button>
-            </li>
+            <MerchantItem
+              key={merchant.id}
+              merchant={merchant}
+              deleteHandler={() => {
+                deleteMerchant(merchant.id);
+              }}
+            />
           ))}
         </ul>
         <Pager pagesCount={pagesCount} />
@@ -43,14 +44,50 @@ class MerchantsView extends Component {
   }
 
   renderLoading() {
-    return <h1>loading</h1>;
+    return <LoadingSpinner />;
   }
 
   renderError() {
-    const { error } = this.props;
-
-    return <h1>{error}</h1>;
+    return <ErrorMessage />;
   }
 }
+
+const MerchantItem = ({ merchant, deleteHandler }) => (
+  <li className="MerchantItem">
+    <Link to={`/merchants/${merchant.id}/`}>
+      <div className="merchant">
+        <img src={merchant.avatarUrl} alt="" />
+        <div className="data-container">
+          <h3>
+            {`${merchant.firstname} ${merchant.lastname}`}
+            {merchant.hasPremium ? <PremiumIcon /> : null}
+          </h3>
+          <span>{merchant.email}</span>
+          <span>+{merchant.phone}</span>
+          <span>{merchant.bids.length} bids</span>
+        </div>
+      </div>
+    </Link>
+    <div className="control">
+      <Link to={`/merchants/${merchant.id}/edit`} className="edit-button">
+        <EditIcon /> edit
+      </Link>{" "}
+      <a
+        onClick={event => {
+          event.preventDefault();
+
+          if (
+            window.confirm("Are you sure you want to remove this merchant?")
+          ) {
+            deleteHandler();
+          }
+        }}
+        className="remove-button"
+      >
+        <RemoveIcon /> remove
+      </a>
+    </div>
+  </li>
+);
 
 export default MerchantsView;

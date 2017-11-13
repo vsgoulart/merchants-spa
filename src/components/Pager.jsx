@@ -1,15 +1,17 @@
+import "../styles/Pager.scss";
+
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Pager = ({ pagesCount }) =>
   pagesCount ? (
-    <ul>
+    <div className="Pager">
       {[...Array(pagesCount)].map((item, index) => (
-        <li key={index}>
-          <Link to={`/${index + 1}`}>{index + 1}</Link>
-        </li>
+        <Link to={`/${index + 1}`} key={index} className="page">
+          <span>{index + 1}</span>
+        </Link>
       ))}
-    </ul>
+    </div>
   ) : null;
 
 export default Pager;

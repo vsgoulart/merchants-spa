@@ -1,0 +1,24 @@
+.Pager {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  .page {
+    padding: 5px 10px;
+    border: 2px solid #d1d1d1;
+    border-right: none;
+    background: #fff;
+
+    &:first-child {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
+    &:last-child {
+      border-right: 2px solid #d1d1d1;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+.MerchantView {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #fff;
+  margin-top: 10px;
+  border-radius: 3px;
+
+  .merchant-data {
+    min-width: 185px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    padding: 10px;
+    padding-right: 30px;
+
+    .back-button:link,
+    .back-button:visited,
+    .back-button:focus,
+    .back-button:active,
+    .back-button:hover {
+      color: #555;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      text-decoration: underline;
+    }
+
+    img {
+      align-self: flex-end;
+    }
+  }
+
+  .bids {
+    width: 80%;
+    padding: 10px;
+    padding-left: 30px;
+    border-left: 2px solid #d1d1d1;
+  }
+
+  .bid {
+    padding: 10px;
+    margin-bottom: 10px;
+
+    h4 {
+      display: inline;
+      margin: 0;
+    }
+  }
+}

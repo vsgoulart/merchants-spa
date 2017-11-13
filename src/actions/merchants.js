@@ -13,6 +13,7 @@ export const SET_MERCHANTS_ERROR = "SET_MERCHANTS_ERROR";
 export const DELETE_MERCHANT = "DELETE_MERCHANT";
 export const CREATE_MERCHANT = "CREATE_MERCHANT";
 export const UPDATE_MERCHANT = "UPDATE_MERCHANT";
+export const RESET_MERCHANTS_ERROR = "RESET_MERCHANTS_ERROR";
 
 export const requestMerchants = () => ({ type: REQUEST_MERCHANTS });
 
@@ -110,3 +111,5 @@ export const fetchUpdateMerchant = merchant => dispatch => {
       dispatch(setMerchantsError(error));
     });
 };
+
+export const resetMerchantsError = () => ({ type: RESET_MERCHANTS_ERROR });

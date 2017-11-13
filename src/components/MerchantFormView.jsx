@@ -1,5 +1,9 @@
+import "../styles/MerchantFormView.scss";
+
 import React, { Component } from "react";
 import { Field } from "redux-form";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
 class MerchantFormView extends Component {
   render() {
@@ -18,65 +22,69 @@ class MerchantFormView extends Component {
     const { handleSubmit, save } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(save)}>
-        <label htmlFor="firstname">
-          First name
-          <Field
-            name="firstname"
-            id="firstname"
-            component="input"
-            type="text"
-            required
-          />
-        </label>
-        <label htmlFor="lastname">
-          Last name
-          <Field
-            name="lastname"
-            id="lastname"
-            component="input"
-            type="text"
-            required
-          />
-        </label>
-        <label htmlFor="avatarUrl">
-          Avatar URL
-          <Field name="avatarUrl" id="avatarUrl" component="input" type="url" />
-        </label>
-        <label htmlFor="email">
-          Email
+      <div className="MerchantFormView">
+        <form onSubmit={handleSubmit(save)}>
+          <div className="names">
+            <Field
+              name="firstname"
+              id="firstname"
+              component="input"
+              type="text"
+              placeholder="First name"
+              required
+            />
+            <Field
+              name="lastname"
+              id="lastname"
+              component="input"
+              type="text"
+              placeholder="Last name"
+              required
+            />
+          </div>
           <Field
             name="email"
             id="email"
             component="input"
             type="email"
+            placeholder="Email"
             required
           />
-        </label>
-        <label htmlFor="phone">
-          Phone
-          <Field name="phone" id="phone" component="input" type="tel" />
-        </label>
-        <label htmlFor="hasPremium">
           <Field
-            name="hasPremium"
-            id="hasPremium"
+            name="phone"
+            id="phone"
             component="input"
-            type="checkbox"
+            type="tel"
+            placeholder="Phone"
           />
-          Has premium
-        </label>
-        <button type="submit">Save</button>
-      </form>
+          <Field
+            name="avatarUrl"
+            id="avatarUrl"
+            component="input"
+            placeholder="Avatar URL"
+            type="url"
+          />
+          <label htmlFor="hasPremium">
+            <Field
+              name="hasPremium"
+              id="hasPremium"
+              component="input"
+              type="checkbox"
+            />
+            Has premium
+          </label>
+          <button type="submit">Save</button>
+        </form>
+      </div>
     );
   }
 
   renderLoading() {
-    return <h1>loading</h1>;
+    return <LoadingSpinner />;
   }
 
   renderError() {
-    return <h1>error</h1>;
+    return <ErrorMessage backToHome />;
   }
 }
 

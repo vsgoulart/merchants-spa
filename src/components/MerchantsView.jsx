@@ -23,7 +23,7 @@ class MerchantsView extends Component {
   }
 
   renderMerchants() {
-    const { merchants, pagesCount, deleteMerchant } = this.props;
+    const { merchants, pagesCount, deleteMerchant, currentPage } = this.props;
 
     return (
       <div className="MerchantsView">
@@ -38,7 +38,7 @@ class MerchantsView extends Component {
             />
           ))}
         </ul>
-        <Pager pagesCount={pagesCount} />
+        <Pager pagesCount={pagesCount} currentPage={currentPage} />
       </div>
     );
   }

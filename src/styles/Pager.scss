@@ -4,10 +4,9 @@
   margin-bottom: 20px;
   margin-top: 20px;
 
-  .page {
+  a.page {
     padding: 5px 10px;
-    border: 2px solid #d1d1d1;
-    border-right: none;
+    border: 1px solid #d1d1d1;
     background: #fff;
 
     &:first-child {
@@ -16,9 +15,12 @@
     }
 
     &:last-child {
-      border-right: 2px solid #d1d1d1;
       border-top-right-radius: 3px;
       border-bottom-right-radius: 3px;
     }
+  }
+
+  a.page.selected {
+    color: #e87f36;
   }
 }

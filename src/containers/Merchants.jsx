@@ -45,7 +45,8 @@ const mapStateToProps = (state, ownProps) => {
       .slice(lowerLimit, upperLimit),
     loading: state.merchants.isFetching,
     error: state.merchants.error,
-    pagesCount
+    pagesCount,
+    currentPage: page + 1
   };
 };
 

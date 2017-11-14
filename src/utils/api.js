@@ -25,7 +25,6 @@ const fetchList = (resource, page) =>
     },
     method: "GET"
   });
-
 const fetchGet = (resource, id) =>
   fetch(`${apiUrl}/${resource}/${id}`, {
     headers: {

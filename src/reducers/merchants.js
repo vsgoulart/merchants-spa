@@ -54,7 +54,7 @@ const merchants = (
       return {
         ...state,
         data: merchantsKeys.reduce((updatedMerchants, id) => {
-          if (id != deletedMerchant.id) {
+          if (Number(id) !== deletedMerchant.id) {
             return { ...updatedMerchants, [id]: { ...merchants[id] } };
           } else {
             return updatedMerchants;

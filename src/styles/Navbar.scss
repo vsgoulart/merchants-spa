@@ -8,6 +8,10 @@ nav {
   justify-content: space-around;
   padding: 10px 0;
 
+  > a {
+    width: fit-content;
+  }
+
   img {
     height: 100%;
   }
